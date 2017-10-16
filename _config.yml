@@ -20,7 +20,7 @@ defaults:
         layout: 'post'
 
 # Build settings
-destination: _site
+#destination: _site
 paginate: 10
 paginate_path: "page:num"
 permalink: date
