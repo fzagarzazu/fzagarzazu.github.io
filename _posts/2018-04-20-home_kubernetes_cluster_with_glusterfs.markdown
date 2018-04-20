@@ -549,7 +549,7 @@ In the master server:
 Follow kubernetes instructions [6].
 
 
-#### Setting up GlusterFS.
+### Setting up GlusterFS.
 
 GlusterFS (https://www.gluster.org/) is an open source distributed file system, it can provide a storage solution for persistent volumes. In this example three 2 TB HDDs are present in the cluster.
 
@@ -681,6 +681,21 @@ Install *glusterfs* in all servers:
 # apt-get install glusterfs-common
 # apt-get install glusterfs-client
 
+```
+
+*Important:*
+
+There is a problem with the current image of heketi, it failed to provision volumes, I had to modify the docker image in the kube templates:
+
+Use the following docker image:
+```
+heketi/heketi:latest
+```
+
+in the following files:
+```
+# kube-templates/heketi-deployment.yaml 
+# kube-templates/deploy-heketi-deployment.yaml
 ```
 
 Install (run in master server):
@@ -856,6 +871,19 @@ sdb                                                                             
     ├─vg_83638125faedb097f12f9ade57759de4-tp_d40f41e976890cbe98ee51cf135fee13     254:3    0     2G  0 lvm  
     └─vg_83638125faedb097f12f9ade57759de4-brick_d40f41e976890cbe98ee51cf135fee13  254:4    0     2G  0 lvm  
 ```
+
+*How to abort and clean up in each server:*
+
+```
+# ./gk-deploy -g --abort
+# dmsetup status       # If necessary:
+# dmsetup remove_all   # In each server.
+# dmsetup ls
+# rm -fr /var/lib/glusterd/vols/*
+# rm -fr /var/lib/heketi/*
+# wipefs -a /dev/<device>
+```
+
 
 And here is a screenshot of the dashboard:
 
