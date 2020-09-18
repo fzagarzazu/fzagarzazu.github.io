@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "BA49Z7HDU7.org.allina.allinahealth.dev",
+        "paths": [ "*" ]
+      }
+    ]
+  }
+}
